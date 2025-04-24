@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Workflow — Flutter App
 
 This is the Flutter frontend for **Work Flow**, a staff performance and project management app. It helps companies track employee productivity, manage project workflows, and monitor work hours and material usage.
@@ -19,3 +20,21 @@ This is the Flutter frontend for **Work Flow**, a staff performance and project 
 ```bash
 flutter pub get
 flutter run
+=======
+# workflow
+
+A new Flutter project.
+
+## Getting Started
+
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
+>>>>>>> 31e7a4c (Initiali commit: log in screen)
