@@ -51,8 +51,6 @@ class _LoginScreenState extends State<LoginScreen>
 
     final paddingValue = width / 14.2909;
 
-    print("padd: $paddingValue");
-
     return Scaffold(
       body: Center(
         child: Container(
@@ -89,6 +87,7 @@ class _LoginScreenState extends State<LoginScreen>
               if (!isSignIn) ...[
                 TextField(
                   controller: nameController,
+                  enabled: !isLoading,
                   decoration: const InputDecoration(
                     hintText: 'Name',
                     prefixIcon: Icon(Icons.person_outline),
@@ -107,6 +106,7 @@ class _LoginScreenState extends State<LoginScreen>
                 const SizedBox(height: 20),
               ],
               TextFormField(
+                enabled: !isLoading,
                 controller: emailController,
                 // Might need later on (not of any use as of now)
                 validator: (value) {
@@ -134,6 +134,7 @@ class _LoginScreenState extends State<LoginScreen>
               ),
               const SizedBox(height: 20),
               TextField(
+                enabled: !isLoading,
                 controller: passwordController,
                 obscureText: obscurePassword,
                 decoration: InputDecoration(
@@ -159,6 +160,7 @@ class _LoginScreenState extends State<LoginScreen>
               if (!isSignIn) ...[
                 const SizedBox(height: 20),
                 TextField(
+                  enabled: !isLoading,
                   controller: confirmPasswordController,
                   obscureText: obscurePassword,
                   decoration: const InputDecoration(
@@ -228,40 +230,46 @@ class _LoginScreenState extends State<LoginScreen>
     final password = passwordController.text;
     final name = nameController.text.trim();
 
-    if (!isSignIn) {
-      if (name.trim().isEmpty) {
-        // showSnackBar("Please enter your Display name", isError: true);
-        showStyledToast(isSuccess: false);
-        return;
-      }
-      if (password.isEmpty && password != confirmPasswordController.text) {
-        // Show interactive feedback
-        // showSnackBar("Passwords do not match", isError: true);
-        showStyledToast(isSuccess: false);
-        return;
-      }
-    }
+    print("email: ${email}, password: ${password}");
 
-    if (!isValidEmail(email) || password.isEmpty) {
-      showStyledToast(isSuccess: false);
-      return;
-    }
+    // if (!isSignIn) {
+    //   if (name.trim().isEmpty) {
+    //     // showSnackBar("Please enter your Display name", isError: true);
+    //     showStyledToast(isSuccess: false);
+    //     print("W're here 1 signup invalid name");
+    //     return;
+    //   }
+    //   if (password.isEmpty && password != confirmPasswordController.text) {
+    //     // Show interactive feedback
+    //     // showSnackBar("Passwords do not match", isError: true);
+    //     showStyledToast(isSuccess: false);
+    //     print("W're here 2 signup invalid pass fields");
+    //     return;
+    //   }
+    // }
+
+    // if (!isValidEmail(email) || password.isEmpty) {
+    //   showStyledToast(isSuccess: false);
+    //   print("W're here 3 invalid email or empty pass");
+    //   return;
+    // }
 
     setState(() {
       isLoading = true;
     });
 
-    final User newUser =
-        User.register(name: name, role: "viewer", email: email);
-
     late final bool isLoginSuccess;
     try {
       if (!isSignIn) {
+        final User newUser =
+            User.register(name: name, role: "viewer", email: email);
+
         await LoginService.register(user: newUser, password: password);
       }
       isLoginSuccess =
           await LoginService.login(email: email, password: password);
     } catch (e) {
+      print("error: $e");
       isLoginSuccess = false;
     }
 
@@ -278,7 +286,7 @@ class _LoginScreenState extends State<LoginScreen>
     });
 
     if (isLoginSuccess) {
-      Navigator.popAndPushNamed(context, AppRoutes.home);
+      Navigator.popAndPushNamed(context, AppRoutes.workerDashboard);
     }
   }
 

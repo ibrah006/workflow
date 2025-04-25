@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:workflow/core/config/app_routes.dart';
-import 'package:workflow/login_screen.dart';
+import 'package:workflow/services/login_service.dart';
 
 void main(List<String> args) {
   runApp(WorkflowApp());
@@ -14,8 +14,20 @@ class WorkflowApp extends StatefulWidget {
 }
 
 class _WorkflowAppState extends State<WorkflowApp> {
+  bool loginCheck = false;
+  bool loggedIn = false;
+
   @override
   Widget build(BuildContext context) {
+    if (!loginCheck) {
+      return Container(
+          color: Theme.of(context).brightness == Brightness.light
+              ? Colors.white
+              : const Color.fromARGB(255, 14, 15, 33));
+    }
+
+    final initialRoute = loggedIn ? AppRoutes.workerDashboard : AppRoutes.login;
+
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -85,6 +97,18 @@ class _WorkflowAppState extends State<WorkflowApp> {
           ),
         ),
         onGenerateRoute: AppRoutes.generateRoute,
-        initialRoute: AppRoutes.login);
+        initialRoute: initialRoute);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    LoginService.isLoggedIn().then((isLoggedIn) {
+      setState(() {
+        loginCheck = true;
+        loggedIn = true;
+      });
+    });
   }
 }
