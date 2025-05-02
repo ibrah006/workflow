@@ -1,15 +1,51 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/flutter_percent_indicator.dart';
+import 'package:workflow/clock_in_card.dart';
+import 'package:workflow/core/extensions/duration_conversions_extension.dart';
+import 'package:workflow/core/providers/dashboard_details_provider.dart';
 import 'package:workflow/custom_card.dart';
+import 'package:workflow/start_task_card.dart';
 import 'package:workflow/task_tile.dart';
+import 'package:provider/provider.dart';
 
-class WorkerDashboardScreen extends StatelessWidget {
+class WorkerDashboardScreen extends StatefulWidget {
   const WorkerDashboardScreen({super.key});
 
   @override
+  State<WorkerDashboardScreen> createState() => _WorkerDashboardScreenState();
+}
+
+class _WorkerDashboardScreenState extends State<WorkerDashboardScreen> {
+  @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+
+    final dashboard = context.watch<DashboardDetailsProvider>();
+
+    dashboard.init();
+
+    if (!dashboard.initialized) {
+      return Container(
+          color: Theme.of(context).brightness == Brightness.dark
+              ? Colors.black
+              : Colors.white);
+    }
+
+    final tasksAssigned = dashboard.assignedTasks.length;
+    print("tasks: ${tasksAssigned}");
+
+    final attendanceToday = dashboard.attendanceAnalysisData.attendanceToday;
+
+    final performancePercent = dashboard.performanceScore.productivityScore;
+
+    final isTaskActive = dashboard.activeWorkActivityLog != null;
+
+    print("performance percent: ${performancePercent}%");
+
+    // Your assigned tasks
+    // Number of tasks to be displayed in this dashboard
+    final numTasksToDisplay = tasksAssigned > 2 ? 2 : tasksAssigned;
 
     return Scaffold(
       backgroundColor: const Color(0xFFf9fcfd),
@@ -27,6 +63,7 @@ class WorkerDashboardScreen extends StatelessWidget {
                     children: [
                       const CircleAvatar(
                         radius: 24,
+                        child: Icon(CupertinoIcons.person),
                         // backgroundImage: NetworkImage(
                         //   // 'https://via.placeholder.com/150',
                         // ),
@@ -76,7 +113,8 @@ class WorkerDashboardScreen extends StatelessWidget {
                             ],
                           ),
                           SizedBox(height: 12.5),
-                          Text('Assigned 4', style: textTheme.titleSmall),
+                          Text('Assigned $tasksAssigned',
+                              style: textTheme.titleSmall),
                           SizedBox(height: 4),
                           Text('Pending 1', style: textTheme.titleSmall),
                         ],
@@ -99,7 +137,8 @@ class WorkerDashboardScreen extends StatelessWidget {
                             ],
                           ),
                           SizedBox(height: 8),
-                          Text('5h 12m', style: textTheme.titleLarge),
+                          Text(attendanceToday.displayHHMM(),
+                              style: textTheme.titleLarge), // 5h 12m
                           SizedBox(height: 3),
                           Text('Clocked In', style: textTheme.titleSmall),
                         ],
@@ -112,91 +151,46 @@ class WorkerDashboardScreen extends StatelessWidget {
 
               // Start Task & Clock In
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: CustomCard(
-                      hasShadow: false,
-                      color: Color(0xFFf3f8fa),
-                      alignment: Alignment.center,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              CircleAvatar(
-                                  radius: 13,
-                                  backgroundColor: Color(0xFF054165)),
-                              Icon(
-                                Icons.play_circle_fill_rounded,
-                                size: 38,
-                                color: Color(0xFFe4f0fa),
-                              ),
-                            ],
-                          ),
-                          SizedBox(width: 8),
-                          Text('Start Task',
-                              style: textTheme.titleMedium!
-                                  .copyWith(color: Colors.black)),
-                        ],
-                      ),
-                    ),
+                    child: StartTaskCard(),
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: CustomCard(
-                      color: Color(0xFFf3f8fa),
-                      alignment: Alignment.center,
-                      hasShadow: false,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              CircleAvatar(
-                                radius: 17,
-                                backgroundColor: Color(0xFFe4f0fa),
-                              ),
-                              Icon(Icons.fiber_manual_record,
-                                  color: Color(0xFF054165), size: 18),
-                            ],
-                          ),
-                          SizedBox(width: 8),
-                          Text('Clock In',
-                              style: textTheme.titleMedium!
-                                  .copyWith(color: Colors.black)),
-                        ],
-                      ),
-                    ),
-                  ),
+                  if (!isTaskActive) ...[
+                    const SizedBox(width: 12),
+                    Expanded(child: ClockInCard()),
+                  ]
                 ],
               ),
               const SizedBox(height: 24),
 
               // Assigned Tasks
-              Text('Your Assigned Tasks',
-                  style: textTheme.titleMedium!.copyWith(color: Colors.black)),
-              const SizedBox(height: 12),
-              TaskTile(
-                icon: Icons.lightbulb,
-                iconColor: Colors.orange,
-                title: 'Fix Plumbing on Floor 2',
-                subtitle: 'Due Today, 3:00 PM',
-                estTime: 'Est. Time: 3 h',
-                status: 'In Progress',
-                showResume: true,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Your Assigned Tasks',
+                      style:
+                          textTheme.titleMedium!.copyWith(color: Colors.black)),
+                  if (tasksAssigned > 2)
+                    TextButton.icon(
+                      onPressed: () {},
+                      label: Icon(Icons.chevron_right_rounded),
+                      icon: Text("View more"),
+                    )
+                ],
               ),
-              const SizedBox(height: 12),
-              TaskTile(
-                icon: Icons.check_circle,
-                iconColor: Colors.green,
-                title: 'Material Sorting – Warehouse',
-                subtitle: 'Due Tomorrow',
-                estTime: '',
-                status: 'Pending',
-                showResume: false,
-              ),
+              ...List.generate(numTasksToDisplay, (index) {
+                final task = dashboard.assignedTasks[index];
+                return TaskTile(
+                  icon: Icons.lightbulb,
+                  iconColor: Colors.orange,
+                  title: task.title,
+                  subtitle: task.description,
+                  estTime: 'No est.',
+                  status: task.status,
+                  showResume: true,
+                );
+              }),
 
               const SizedBox(height: 24),
 
@@ -210,11 +204,13 @@ class WorkerDashboardScreen extends StatelessWidget {
                     CircularPercentIndicator(
                       radius: 55,
                       lineWidth: 6,
-                      percent: 0.86,
+                      percent: performancePercent >= 100
+                          ? 1
+                          : performancePercent / 100,
                       center: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("86%",
+                          Text("${performancePercent.toInt()}%",
                               style: textTheme.headlineMedium!
                                   .copyWith(color: Color(0xFF1b2933))),
                           Text(
@@ -225,7 +221,9 @@ class WorkerDashboardScreen extends StatelessWidget {
                         ],
                       ),
                       backgroundColor: Color(0xFFebf4fb),
-                      progressColor: Color(0xFF4090ff),
+                      progressColor: performancePercent >= 100
+                          ? Color(0xFF00C853)
+                          : Color(0xFF4090ff),
                     ),
                     const SizedBox(width: 25),
                     Expanded(
@@ -258,5 +256,11 @@ class WorkerDashboardScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
   }
 }

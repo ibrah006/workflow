@@ -25,6 +25,7 @@ class TaskTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return CustomCard(
+      margin: EdgeInsets.only(top: 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -74,7 +75,9 @@ class TaskTile extends StatelessWidget {
                         status,
                         style: textTheme.bodyMedium!.copyWith(
                             color:
-                                status == "Pending" ? Color(0xFF408ffe) : null,
+                                status == "Pending" || status == "In Progress"
+                                    ? Color(0xFF408ffe)
+                                    : null,
                             fontWeight: FontWeight.w500),
                       ),
                   ],

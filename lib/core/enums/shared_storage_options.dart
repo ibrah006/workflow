@@ -1,1 +1,1 @@
-enum SharedStorageOptions { jwtToken, email, displayName, userRole }
+enum SharedStorageOptions { jwtToken, email, displayName, userRole, uuid }

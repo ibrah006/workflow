@@ -1,5 +1,5 @@
 class AttendanceLog {
-  final String id;
+  final int id;
   final String userId;
   final DateTime clockIn;
   final DateTime? clockOut;
@@ -11,11 +11,18 @@ class AttendanceLog {
     this.clockOut,
   });
 
-  factory AttendanceLog.fromJson(Map<String, dynamic> json) => AttendanceLog(
-        id: json['id'],
-        userId: json['userId'],
-        clockIn: DateTime.parse(json['clockIn']),
-        clockOut:
-            json['clockOut'] != null ? DateTime.parse(json['clockOut']) : null,
-      );
+  Duration get getDuration {
+    return (clockOut ?? DateTime.now()).difference(clockIn);
+  }
+
+  factory AttendanceLog.fromJson(Map<String, dynamic> json) {
+    print("attendance from json: ${json}");
+    return AttendanceLog(
+      id: json['id'],
+      userId: json['userId'],
+      clockIn: DateTime.parse(json['checkIn']),
+      clockOut:
+          json['clockOut'] != null ? DateTime.parse(json['clockOut']) : null,
+    );
+  }
 }

@@ -1,3 +1,6 @@
+import 'package:workflow/core/api/local_http.dart';
+import 'package:workflow/core/enums/shared_storage_options.dart';
+
 class User {
   late final String id;
   final String name;
@@ -16,6 +19,15 @@ class User {
     this.departmentId,
     required this.createdAt,
   });
+
+  User.currentUser()
+      : id = LocalHttp.prefs.get(SharedStorageOptions.uuid.name).toString(),
+        email = LocalHttp.prefs.get(SharedStorageOptions.email.name).toString(),
+        name = LocalHttp.prefs
+            .get(SharedStorageOptions.displayName.name)
+            .toString(),
+        role =
+            LocalHttp.prefs.get(SharedStorageOptions.userRole.name).toString();
 
   User.register({
     required this.name,
