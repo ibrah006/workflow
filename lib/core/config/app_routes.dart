@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:workflow/worker_dashboard_screen.dart';
-import 'package:workflow/login_screen.dart';
+import 'package:workflow/features/dashboard/screens/worker_dashboard_screen.dart';
+import 'package:workflow/features/auth/screens/login_screen.dart';
 
 class AppRoutes {
   static const login = "/login";

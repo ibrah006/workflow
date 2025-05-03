@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:workflow/custom_card.dart';
+import 'package:workflow/core/components/custom_card.dart';
 
 class TaskTile extends StatelessWidget {
   final IconData icon;

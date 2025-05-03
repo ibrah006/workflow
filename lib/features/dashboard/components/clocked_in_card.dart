@@ -5,7 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:workflow/core/extensions/duration_conversions_extension.dart';
 import 'package:workflow/core/providers/dashboard_details_provider.dart';
-import 'package:workflow/custom_card.dart';
+import 'package:workflow/core/components/custom_card.dart';
 
 class ClockedInCard extends StatefulWidget {
   const ClockedInCard({

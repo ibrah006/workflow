@@ -1,4 +1,4 @@
-import 'package:workflow/core/models/task.dart';
+import 'package:workflow/data/models/task.dart';
 
 class WorkActivityLog {
   final int id;

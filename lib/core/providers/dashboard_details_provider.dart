@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:workflow/core/models/task.dart';
-import 'package:workflow/core/models/work_activity_log.dart';
+import 'package:workflow/data/models/task.dart';
+import 'package:workflow/data/models/work_activity_log.dart';
 import 'package:workflow/data/attendance_analysis_data.dart';
 import 'package:workflow/data/performance_score.dart';
-import 'package:workflow/services/attendance_log_service.dart';
-import 'package:workflow/services/performance_service.dart';
-import 'package:workflow/services/task_service.dart';
+import 'package:workflow/core/services/attendance_log_service.dart';
+import 'package:workflow/core/services/performance_service.dart';
+import 'package:workflow/core/services/task_service.dart';
 import 'package:workflow/core/enums/log_data_analysis_for.dart';
-import 'package:workflow/core/models/attendance_log.dart';
-import 'package:workflow/services/work_activity_log_service.dart';
+import 'package:workflow/data/models/attendance_log.dart';
+import 'package:workflow/core/services/work_activity_log_service.dart';
 
 class DashboardDetailsProvider extends ChangeNotifier {
   List<Task> _assignedTasks = [];

@@ -4,7 +4,7 @@ import 'package:workflow/core/api/api_client.dart';
 import 'package:workflow/core/api/endpoints.dart';
 import 'package:workflow/core/api/local_http.dart';
 import 'package:workflow/core/enums/log_data_analysis_for.dart';
-import 'package:workflow/core/models/attendance_log.dart';
+import 'package:workflow/data/models/attendance_log.dart';
 import 'package:workflow/data/attendance_analysis_data.dart';
 
 class AttendanceLogService {

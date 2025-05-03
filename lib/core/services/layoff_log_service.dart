@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:workflow/core/api/api_client.dart';
 import 'package:workflow/core/api/endpoints.dart';
 import 'package:workflow/core/api/local_http.dart';
-import 'package:workflow/core/models/layoff_log.dart';
+import 'package:workflow/data/models/layoff_log.dart';
 
 class LayoffLogService {
   static Future<List<LayoffLog>> fetchLayoffs() async {

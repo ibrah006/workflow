@@ -3,10 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:workflow/clocked_in_card.dart';
+import 'package:workflow/features/dashboard/components/clocked_in_card.dart';
 import 'package:workflow/core/providers/dashboard_details_provider.dart';
-import 'package:workflow/custom_card.dart';
-import 'package:workflow/services/attendance_log_service.dart';
+import 'package:workflow/core/components/custom_card.dart';
+import 'package:workflow/core/services/attendance_log_service.dart';
 
 class ClockInCard extends StatefulWidget {
   const ClockInCard({super.key});

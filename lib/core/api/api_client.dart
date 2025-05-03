@@ -1,7 +1,7 @@
 import 'package:workflow/core/api/local_http.dart';
 
 class ApiClient {
-  static const baseUrl = 'http://192.168.0.129:3000';
+  static const baseUrl = 'http://192.168.0.108:3000';
 
   static final LocalHttp http = LocalHttp(baseUrl: baseUrl);
 }

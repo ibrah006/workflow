@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'package:workflow/core/api/api_client.dart';
 import 'package:workflow/core/api/endpoints.dart';
 import 'package:workflow/core/api/local_http.dart';
-import 'package:workflow/core/models/attendance_log.dart';
-import 'package:workflow/core/models/work_activity_log.dart';
-import 'package:workflow/core/models/task.dart';
+import 'package:workflow/data/models/attendance_log.dart';
+import 'package:workflow/data/models/work_activity_log.dart';
+import 'package:workflow/data/models/task.dart';
 
 class TaskService {
   static Future<List<Task>> fetchTasks() async {

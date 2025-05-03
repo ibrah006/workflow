@@ -3,7 +3,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:lottie/lottie.dart';
 import 'package:workflow/core/config/app_routes.dart';
 import 'package:workflow/core/models/User.dart';
-import 'package:workflow/services/login_service.dart';
+import 'package:workflow/core/services/login_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

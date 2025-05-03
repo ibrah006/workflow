@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:workflow/core/extensions/datetime_conversions_ext.dart';
-import 'package:workflow/core/models/task.dart';
+import 'package:workflow/data/models/task.dart';
 import 'package:workflow/core/providers/dashboard_details_provider.dart';
-import 'package:workflow/custom_card.dart';
+import 'package:workflow/core/components/custom_card.dart';
 
 class ActiveTaskCard extends StatefulWidget {
   final String title;

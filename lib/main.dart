@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:workflow/core/config/app_routes.dart';
 import 'package:workflow/core/providers/dashboard_details_provider.dart';
-import 'package:workflow/services/login_service.dart';
+import 'package:workflow/core/services/login_service.dart';
 
 void main(List<String> args) {
   runApp(WorkflowApp());

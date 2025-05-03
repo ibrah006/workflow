@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:workflow/core/api/api_client.dart';
 import 'package:workflow/core/api/endpoints.dart';
-import 'package:workflow/core/models/user.dart';
-import 'package:workflow/core/models/work_activity_log.dart';
+import 'package:workflow/data/models/user.dart';
+import 'package:workflow/data/models/work_activity_log.dart';
 
 class WorkActivityLogService {
   // Fetch active work activity log for current user

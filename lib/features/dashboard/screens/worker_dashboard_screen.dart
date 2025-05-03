@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/flutter_percent_indicator.dart';
-import 'package:workflow/clock_in_card.dart';
+import 'package:workflow/features/dashboard/components/clock_in_card.dart';
 import 'package:workflow/core/extensions/duration_conversions_extension.dart';
 import 'package:workflow/core/providers/dashboard_details_provider.dart';
-import 'package:workflow/custom_card.dart';
-import 'package:workflow/start_task_card.dart';
+import 'package:workflow/core/components/custom_card.dart';
+import 'package:workflow/features/dashboard/components/start_task_card.dart';
 import 'package:workflow/task_tile.dart';
 import 'package:provider/provider.dart';
 
