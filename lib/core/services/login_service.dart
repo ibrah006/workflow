@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workflow/core/api/api_client.dart';
 import 'package:workflow/core/api/endpoints.dart';
 import 'package:workflow/core/enums/shared_storage_options.dart';
-import 'package:workflow/core/models/User.dart';
+import 'package:workflow/data/models/user.dart';
 
 class LoginService {
   static Future<bool> login({

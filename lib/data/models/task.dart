@@ -1,4 +1,4 @@
-import 'package:workflow/core/models/User.dart';
+import 'package:workflow/data/models/user.dart';
 
 class Task {
   final int id;
