@@ -1,0 +1,1 @@
+enum AttendanceStatus { clockedIn, clockedOut }
