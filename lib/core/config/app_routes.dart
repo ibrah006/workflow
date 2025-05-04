@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:workflow/features/dashboard/screens/admin_dashboard_screen.dart';
 import 'package:workflow/features/dashboard/screens/worker_dashboard_screen.dart';
 import 'package:workflow/features/auth/screens/login_screen.dart';
 
@@ -12,7 +13,7 @@ class AppRoutes {
         case login:
           return LoginScreen();
         case workerDashboard:
-          return WorkerDashboardScreen();
+          return AdminDashboardScreen();
         default:
           return Placeholder();
       }
