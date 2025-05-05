@@ -6,7 +6,7 @@ import 'package:workflow/core/extensions/duration_conversions_extension.dart';
 import 'package:workflow/core/providers/dashboard_details_provider.dart';
 import 'package:workflow/core/components/custom_card.dart';
 import 'package:workflow/features/dashboard/components/start_task_card.dart';
-import 'package:workflow/task_tile.dart';
+import 'package:workflow/simple_task_tile.dart';
 import 'package:provider/provider.dart';
 
 class WorkerDashboardScreen extends StatefulWidget {
@@ -181,7 +181,7 @@ class _WorkerDashboardScreenState extends State<WorkerDashboardScreen> {
               ),
               ...List.generate(numTasksToDisplay, (index) {
                 final task = dashboard.assignedTasks[index];
-                return TaskTile(
+                return SimpleTaskTile(
                   icon: Icons.lightbulb,
                   iconColor: Colors.orange,
                   title: task.title,

@@ -8,14 +8,19 @@ class CustomCard extends StatefulWidget {
       this.color,
       this.hasShadow = true,
       this.margin,
-      this.onPressed});
+      this.onPressed,
+      this.padding,
+      this.borderRadius = 16,
+      this.shadowGreyLevel = 0.04});
 
   final Widget? child;
   final AlignmentGeometry? alignment;
   final Color? color;
   final bool hasShadow;
-  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? margin, padding;
   final Function? onPressed;
+  final double borderRadius;
+  final double shadowGreyLevel;
 
   @override
   State<CustomCard> createState() => _CustomCardState();
@@ -65,20 +70,21 @@ class _CustomCardState extends State<CustomCard> {
         child: Container(
           margin: widget.margin,
           alignment: widget.alignment,
-          padding: const EdgeInsets.all(16),
+          padding: widget.padding ?? EdgeInsets.all(16),
           decoration: BoxDecoration(
             boxShadow: !widget.hasShadow
                 ? null
                 : [
                     BoxShadow(
-                      color: Colors.grey.withValues(alpha: 0.04),
+                      color:
+                          Colors.grey.withValues(alpha: widget.shadowGreyLevel),
                       spreadRadius: 5,
                       blurRadius: 10,
                       offset: Offset(0, 3), // changes position of shadow
                     ),
                   ],
             color: widget.color ?? Colors.white,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(widget.borderRadius),
           ),
           child: widget.child,
         ),

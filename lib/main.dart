@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:workflow/core/config/app_routes.dart';
 import 'package:workflow/core/providers/dashboard_details_provider.dart';
+import 'package:workflow/core/providers/task_provider.dart';
 import 'package:workflow/core/services/login_service.dart';
 
 void main(List<String> args) {
@@ -30,16 +31,21 @@ class _WorkflowAppState extends State<WorkflowApp> {
 
     final initialRoute = loggedIn ? AppRoutes.workerDashboard : AppRoutes.login;
 
+    final scaffoldBackgroundColor = Color(0xFFf7f9fb);
+
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => DashboardDetailsProvider())
+        ChangeNotifierProvider(create: (context) => DashboardDetailsProvider()),
+        ChangeNotifierProvider(create: (context) => TaskProvider()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
               // primaryColor: Color(0xFF3776e8),
               // color
-              scaffoldBackgroundColor: Color(0xFFf7f9fb),
+              scaffoldBackgroundColor: scaffoldBackgroundColor,
+              appBarTheme:
+                  AppBarTheme(backgroundColor: scaffoldBackgroundColor),
               colorScheme: ColorScheme(
                 brightness:
                     Brightness.light, // You can choose light or dark here
@@ -115,7 +121,9 @@ class _WorkflowAppState extends State<WorkflowApp> {
                     textStyle: WidgetStatePropertyAll(
                         Theme.of(context).textTheme.titleMedium),
                     foregroundColor: WidgetStatePropertyAll(Colors.black)),
-              )),
+              ),
+              progressIndicatorTheme: ProgressIndicatorThemeData(
+                  linearTrackColor: Colors.grey.shade200)),
           onGenerateRoute: AppRoutes.generateRoute,
           initialRoute: initialRoute),
     );

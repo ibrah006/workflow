@@ -1,9 +1,11 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:workflow/core/components/task_tile.dart';
+import 'package:workflow/core/providers/dashboard_details_provider.dart';
+import 'package:workflow/data/models/task.dart';
+import 'package:workflow/features/dashboard/components/wastage_line_chart.dart';
 
 class AdminDashboardScreen extends StatelessWidget {
   const AdminDashboardScreen({super.key});
@@ -14,9 +16,21 @@ class AdminDashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
+    final dashboard = context.watch<DashboardDetailsProvider>();
+
+    final tasks = dashboard.assignedTasks;
+
+    dashboard.init();
+
+    if (!dashboard.initialized) {
+      return Container(
+          color: Theme.of(context).brightness == Brightness.dark
+              ? Colors.black
+              : Colors.white);
+    }
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Text("Welcome, Admin"),
       ),
       body: Padding(
@@ -145,104 +159,61 @@ class AdminDashboardScreen extends StatelessWidget {
                 )
               ],
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
-class WastageLineChart extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    final labelsStyleX =
-        textTheme.labelLarge!.copyWith(color: Colors.blueGrey.shade600);
-
-    final labelsStyleY = textTheme.labelLarge!.copyWith(
-        color: Colors.blueGrey.shade600, fontWeight: FontWeight.normal);
-
-    return AspectRatio(
-      aspectRatio: 1.5,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: LineChart(
-          LineChartData(
-            titlesData: FlTitlesData(
-              topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-              rightTitles:
-                  AxisTitles(sideTitles: SideTitles(showTitles: false)),
-              bottomTitles: AxisTitles(
-                sideTitles: SideTitles(
-                  showTitles: true,
-                  reservedSize: 32,
-                  interval: 1,
-                  getTitlesWidget: (value, _) {
-                    switch (value.toInt()) {
-                      case 0:
-                        return Text('Thu', style: labelsStyleX);
-                      case 1:
-                        return Text('Fri', style: labelsStyleX);
-                      case 2:
-                        return Text('Sat', style: labelsStyleX);
-                      default:
-                        return const SizedBox.shrink();
-                    }
-                  },
-                ),
-              ),
-              leftTitles: AxisTitles(
-                sideTitles: SideTitles(
-                  showTitles: true,
-                  interval: 3,
-                  getTitlesWidget: (value, meta) {
-                    if (value == 0 || value == 9) {
-                      return const SizedBox
-                          .shrink(); // Hide origin and max value
-                    }
-                    return Text(
-                      value.toInt().toString(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelLarge!
-                          .copyWith(color: Colors.blueGrey.shade600),
-                    );
-                  },
-                ),
-              ),
+            Text(
+              "Active Tasks",
+              style: textTheme.titleMedium!
+                  .copyWith(color: Colors.black, fontWeight: FontWeight.w500),
             ),
-            gridData: FlGridData(show: false),
-            borderData: FlBorderData(show: false),
-            minX: 0,
-            maxX: 2,
-            minY: 0,
-            maxY: 9,
-            lineBarsData: [
-              LineChartBarData(
-                spots: [
-                  FlSpot(0, 4),
-                  FlSpot(1, 6),
-                  FlSpot(2, 3),
-                ],
-                isCurved: true,
-                barWidth: 3,
-                color: Color(0xFF6198f8),
-                dotData: FlDotData(show: false),
-                belowBarData: BarAreaData(
-                  show: true,
-                  gradient: LinearGradient(
-                    colors: [
-                      Color(0xFF6198f8).withAlpha(18),
-                      Colors.white,
+            SizedBox(height: 15),
+
+            // Active Tasks list
+            ...List.generate(4, (index) {
+              final task = Task.copy(tasks[0]);
+
+              task.color = [
+                Color(0xFF3b72e3),
+                Colors.blueGrey.shade800,
+                Color(0xFFff7043),
+                Color(0xFFabc3d8)
+              ][index];
+
+              task.icon = [
+                EvaIcons.fileText,
+                EvaIcons.folderRemove,
+                EvaIcons.map,
+                EvaIcons.cube,
+              ][index];
+
+              return TaskTile(task: task);
+            }),
+            if (tasks.isEmpty)
+              Row(
+                children: [
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Icon(
+                        EvaIcons.fileOutline,
+                        color: Colors.grey.shade400,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 4),
+                        child: Icon(
+                          EvaIcons.close,
+                          size: 14,
+                          color: Colors.grey.shade400,
+                        ),
+                      )
                     ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
                   ),
-                ),
-              ),
-            ],
-          ),
+                  Text(
+                    " There are no active tasks.",
+                    style: textTheme.labelLarge!.copyWith(color: Colors.grey),
+                  )
+                ],
+              )
+          ],
         ),
       ),
     );

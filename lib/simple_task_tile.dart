@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:workflow/core/components/custom_card.dart';
 
-class TaskTile extends StatelessWidget {
+class SimpleTaskTile extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
   final String title;
@@ -10,7 +10,7 @@ class TaskTile extends StatelessWidget {
   final String status;
   final bool showResume;
 
-  const TaskTile({
+  const SimpleTaskTile({
     super.key,
     required this.icon,
     required this.iconColor,
