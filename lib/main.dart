@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:workflow/core/config/app_routes.dart';
 import 'package:workflow/core/providers/dashboard_details_provider.dart';
+import 'package:workflow/core/providers/projects_provider.dart';
 import 'package:workflow/core/providers/task_provider.dart';
 import 'package:workflow/core/services/login_service.dart';
 
@@ -37,6 +38,7 @@ class _WorkflowAppState extends State<WorkflowApp> {
       providers: [
         ChangeNotifierProvider(create: (context) => DashboardDetailsProvider()),
         ChangeNotifierProvider(create: (context) => TaskProvider()),
+        ChangeNotifierProvider(create: (context) => ProjectsProvider()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,

@@ -44,4 +44,11 @@ class ApiEndpoints {
   // Self Productivity Summary
   static const getUserPerformance = "/analytics/me/staff-productivity-summary";
   static const getUsersPerformance = "/analytics/staff-productivity-summary";
+
+  // Material log endpoints
+  static const materialLogs = "/materialLogs";
+  static String getMaterialLogById(int logId) => "/materialLogs/$logId";
+
+  // Projects endpoints
+  static const projects = "/projects";
 }

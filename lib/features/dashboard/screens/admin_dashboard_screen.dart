@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:workflow/core/components/task_tile.dart';
+import 'package:workflow/core/config/app_routes.dart';
 import 'package:workflow/core/providers/dashboard_details_provider.dart';
+import 'package:workflow/core/providers/projects_provider.dart';
 import 'package:workflow/data/models/task.dart';
 import 'package:workflow/features/dashboard/components/wastage_line_chart.dart';
 
@@ -27,6 +29,17 @@ class AdminDashboardScreen extends StatelessWidget {
           color: Theme.of(context).brightness == Brightness.dark
               ? Colors.black
               : Colors.white);
+    }
+
+    // Initialize Projects
+    final projectsProvider =
+        Provider.of<ProjectsProvider>(context, listen: false);
+    if (projectsProvider.projects.isEmpty) {
+      Provider.of<ProjectsProvider>(context, listen: false)
+          .initializeProjects()
+          .then((value) {
+        print("projects initialized");
+      });
     }
 
     return Scaffold(
@@ -214,6 +227,41 @@ class AdminDashboardScreen extends StatelessWidget {
                 ],
               )
           ],
+        ),
+      ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+              children: List.generate(2, (index) {
+            return Expanded(
+              child: TextButton(
+                  onPressed: () {
+                    if (index == 0) {
+                      Navigator.pushNamed(context, AppRoutes.projects);
+                    }
+                  },
+                  style: TextButton.styleFrom(foregroundColor: Colors.black),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        [
+                          EvaIcons.folderOutline,
+                          EvaIcons.plusCircleOutline
+                        ][index],
+                        size: 31,
+                      ),
+                      SizedBox(width: 9),
+                      Text(
+                        ["View Projects", "Add Task"][index],
+                        style: textTheme.bodyLarge!
+                            .copyWith(fontWeight: FontWeight.w500),
+                      )
+                    ],
+                  )),
+            );
+          })),
         ),
       ),
     );

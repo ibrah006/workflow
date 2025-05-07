@@ -2,6 +2,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:workflow/core/components/custom_card.dart';
+import 'package:workflow/core/components/custom_tabs.dart';
 import 'package:workflow/core/extensions/datetime_conversions_ext.dart';
 import 'package:workflow/core/providers/task_provider.dart';
 import 'package:workflow/data/models/user.dart';
@@ -79,7 +80,7 @@ class _TaskScreenState extends State<TaskScreen> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(17),
                     border: Border.all(
-                        width: 1.5, color: Color.fromARGB(255, 227, 232, 233)),
+                        width: 1.75, color: Color.fromARGB(255, 233, 237, 238)),
                   ),
                   padding: EdgeInsets.symmetric(vertical: 13, horizontal: 18),
                   child: Row(
@@ -90,7 +91,7 @@ class _TaskScreenState extends State<TaskScreen> {
                         borderRadius: 13,
                         padding:
                             EdgeInsets.symmetric(horizontal: 15, vertical: 7),
-                        color: Color.fromARGB(255, 236, 240, 241),
+                        color: Color.fromARGB(255, 233, 237, 238),
                         child: Text(status),
                       ),
                     ],
@@ -106,63 +107,17 @@ class _TaskScreenState extends State<TaskScreen> {
                   child: Column(
                     children: [
                       // Estimated Materials & Actually Used Materials tabs
-                      Padding(
-                        padding: const EdgeInsets.all(16).copyWith(bottom: 0),
-                        child: Row(
-                          spacing: 15,
-                          children: List.generate(2, (index) {
-                            final child =
-                                LayoutBuilder(builder: (context, constraints) {
-                              print("width: ${constraints.maxWidth}");
-
-                              return GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    selectedTab = index;
-                                  });
-                                },
-                                child: Column(
-                                  children: [
-                                    Text(
-                                        [
-                                          "Estimated Materials",
-                                          "Used Materials"
-                                        ][index],
-                                        style: commonTextStyle.copyWith(
-                                            fontSize: 19,
-                                            fontWeight: FontWeight.w600,
-                                            color: selectedTab != index
-                                                ? Colors.grey.shade600
-                                                : null)),
-                                    SizedBox(height: 7),
-                                    // Selected Indicator
-                                    Container(
-                                      margin:
-                                          EdgeInsets.symmetric(horizontal: 15),
-                                      height: 4,
-                                      width: selectedTab == index
-                                          ? (constraints.maxWidth ==
-                                                  double.infinity
-                                              ? 112
-                                              : constraints.maxWidth)
-                                          : 0,
-                                      decoration: BoxDecoration(
-                                          color: Color(0xFF0e55d6),
-                                          borderRadius:
-                                              BorderRadius.circular(3)),
-                                    )
-                                  ],
-                                ),
-                              );
+                      CustomTabs(
+                          selectedTab: selectedTab,
+                          tabLabels: {
+                            "Estimated Materials": 7319,
+                            "Used Materials": 5569
+                          },
+                          onPressed: (index) {
+                            setState(() {
+                              selectedTab = index;
                             });
-                            return index == 0
-                                ? Expanded(
-                                    child: child,
-                                  )
-                                : child;
                           }),
-                        ),
-                      ),
                       SizedBox(height: 5),
                       Divider(
                         color: Color(0xFFf4f6f8),
@@ -203,10 +158,11 @@ class _TaskScreenState extends State<TaskScreen> {
                             SizedBox(height: 14),
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
-                )
+                ),
+                SizedBox(height: 35),
               ],
             ),
           ),

@@ -11,6 +11,8 @@ class Task {
   late List<User> _assignees;
   late int _projectId;
 
+  DateTime? _dateCompleted;
+
   Color? _color;
   IconData? _icon;
 
@@ -23,12 +25,14 @@ class Task {
     required String status,
     required List<User> assignees,
     required int projectId,
+    required DateTime? dateCompleted,
   })  : _id = id,
         _title = title,
         _description = description,
         _dueDate = dueDate,
         _assignees = assignees,
-        _projectId = projectId {
+        _projectId = projectId,
+        _dateCompleted = dateCompleted {
     _status = status.replaceAll(RegExp(r"_"), " ");
     _status = "${_status[0].toUpperCase()}${_status.substring(1)}";
   }
@@ -41,6 +45,7 @@ class Task {
   String get status => _status;
   List<User> get assignees => _assignees;
   int get projectId => _projectId;
+  DateTime? get dateCompleted => _dateCompleted;
   Color? get color => _color;
   IconData? get icon => _icon;
 
@@ -63,6 +68,9 @@ class Task {
         title: json['name'],
         description: json['description'],
         dueDate: DateTime.parse(json['dueDate']),
+        dateCompleted: json['dateCompleted'] != null
+            ? DateTime.parse(json['dateCompleted'])
+            : null,
         // estimatedHours: json['estimatedHours'],
         status: json["status"],
         // TaskStatus.values
