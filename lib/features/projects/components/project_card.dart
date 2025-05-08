@@ -109,6 +109,7 @@ class ProjectCard extends StatelessWidget {
                     label: Text("Add Task"),
                   ),
                 ),
+                // Vertical Divider
                 Container(color: Color(0xFFeef5fc), width: 2, height: 18),
                 Expanded(
                   child: TextButton.icon(

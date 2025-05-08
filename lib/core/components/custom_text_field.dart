@@ -16,8 +16,6 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    print("color i'm looking for: ${Theme.of(context).colorScheme.onPrimary}");
-
     return TextField(
       controller: controller,
       decoration: InputDecoration(
