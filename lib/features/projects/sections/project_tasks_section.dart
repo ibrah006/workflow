@@ -14,12 +14,12 @@ class ProjectTasksSection extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          // mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
+      child: Column(
+        // mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(20).copyWith(bottom: 0),
+            child: Row(
                 spacing: 25,
                 children:
                     List.generate(project.uniqueTaskStatuses.length, (index) {
@@ -31,23 +31,23 @@ class ProjectTasksSection extends StatelessWidget {
                     ),
                   );
                 })),
-            SizedBox(height: 15),
-            Expanded(
-              // height: MediaQuery.of(context).size.height / 1.4,
-              // height: 400,
-              child: GridView.count(
-                crossAxisCount: screenWidth > 530 ? 2 : 1, // 2 columns
-                // padding: const EdgeInsets.all(16.0),
-                crossAxisSpacing: 10.0,
-                mainAxisSpacing: 10.0,
-                childAspectRatio: screenWidth > 530 ? 1.05 : 2.25,
-                children: List.generate(6, (index) {
-                  return TaskCard();
-                }),
-              ),
+          ),
+          SizedBox(height: 15),
+          Expanded(
+            // height: MediaQuery.of(context).size.height / 1.4,
+            // height: 400,
+            child: GridView.count(
+              crossAxisCount: screenWidth > 530 ? 2 : 1, // 2 columns
+              // padding: const EdgeInsets.all(16.0),
+              crossAxisSpacing: 10.0,
+              mainAxisSpacing: 10.0,
+              childAspectRatio: screenWidth > 530 ? 1.05 : 2.6,
+              children: List.generate(6, (index) {
+                return TaskCard();
+              }),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

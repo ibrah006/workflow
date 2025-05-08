@@ -1,5 +1,6 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:workflow/core/components/custom_card.dart';
 
 class TaskCard extends StatelessWidget {
   const TaskCard({super.key});
@@ -8,13 +9,16 @@ class TaskCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
-    return Container(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border:
-            Border.all(width: 1.75, color: Color.fromARGB(255, 233, 237, 238)),
-      ),
+    return CustomCard(
+      margin: EdgeInsets.symmetric(horizontal: 20),
+      shadowGreyLevel: 0.08,
+      color: Theme.of(context).scaffoldBackgroundColor,
+      // padding: EdgeInsets.all(16),
+      // decoration: BoxDecoration(
+      //   borderRadius: BorderRadius.circular(12),
+      //   border:
+      //       Border.all(width: 1.75, color: Color.fromARGB(255, 233, 237, 238)),
+      // ),
       child: DefaultTextStyle(
         style: textTheme.bodyLarge!.copyWith(color: Colors.blueGrey.shade900),
         child: Column(
