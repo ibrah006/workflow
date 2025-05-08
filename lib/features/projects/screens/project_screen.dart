@@ -2,6 +2,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
 import 'package:workflow/core/components/custom_tabs.dart';
+import 'package:workflow/core/config/app_routes.dart';
 import 'package:workflow/data/models/project.dart';
 import 'package:workflow/features/projects/sections/project_overview_section.dart';
 import 'package:workflow/features/projects/sections/project_tasks_section.dart';
@@ -43,7 +44,9 @@ class _ProjectScreenState extends State<ProjectScreen> {
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButton: selectedTab == 1
           ? FloatingActionButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, AppRoutes.createTask);
+              },
               shape: CircleBorder(),
               child: Icon(EvaIcons.plus),
             )

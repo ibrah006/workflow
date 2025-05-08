@@ -1,6 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:workflow/core/config/app_routes.dart';
 import 'package:workflow/core/extensions/datetime_conversions_ext.dart';
 import 'package:workflow/data/models/project.dart';
 import 'package:workflow/features/projects/screens/project_screen.dart';
@@ -99,7 +100,9 @@ class ProjectOverviewSection extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: FilledButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRoutes.createTask);
+                },
                 style: FilledButton.styleFrom(
                     padding: EdgeInsets.symmetric(vertical: 12.5)),
                 icon: Icon(
