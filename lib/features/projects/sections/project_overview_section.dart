@@ -1,6 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:workflow/core/extensions/datetime_conversions_ext.dart';
 import 'package:workflow/data/models/project.dart';
 import 'package:workflow/features/projects/screens/project_screen.dart';
 
@@ -55,8 +56,14 @@ class ProjectOverviewSection extends StatelessWidget {
                             .copyWith(color: Colors.grey.shade800)),
                     SizedBox(height: 3),
                     Text([startDate, dueDate][index],
-                        style: ProjectScreen.commonTextStyle(textTheme)
-                            .copyWith(fontWeight: FontWeight.w600))
+                        style:
+                            ProjectScreen.commonTextStyle(textTheme).copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: index == 1
+                                    ? /* for Deadline */
+                                    project.dueDate?.deadlineColor
+                                    : /* for Start Date */
+                                    null))
                   ],
                 );
               })),

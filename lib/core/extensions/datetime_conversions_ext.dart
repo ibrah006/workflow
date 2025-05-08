@@ -1,3 +1,7 @@
+import 'dart:ui';
+
+import 'package:workflow/core/enums/deadline_status.dart';
+
 extension DateTimeRoughExtension on DateTime {
   String get dayDisplayRough {
     final now = DateTime.now();
@@ -42,5 +46,31 @@ extension DateTimeDisplayExtension on DateTime {
     if (difference == 7) return "Week";
 
     return "${day.toString().padLeft(2, '0')}/${month.toString().padLeft(2, '0')}/$year";
+  }
+}
+
+extension DateTimeDeadline on DateTime? {
+  DeadlineStatus get deadlineStatus {
+    if (this != null) {
+      final deadlineDueIn = this!.difference(DateTime.now()).inDays;
+      return deadlineDueIn >= 0
+          ? DeadlineStatus.pending
+          : DeadlineStatus.overdue;
+    } else {
+      return DeadlineStatus.na;
+    }
+  }
+}
+
+extension DatetimeUIExtension on DateTime {
+  Color? get deadlineColor {
+    switch (deadlineStatus) {
+      case DeadlineStatus.overdue:
+        return Color(0xFFf7303a);
+      case DeadlineStatus.pending:
+        return Color(0xFFff6e52);
+      case DeadlineStatus.na:
+        return null;
+    }
   }
 }

@@ -42,8 +42,8 @@ class ProjectTasksSection extends StatelessWidget {
               crossAxisSpacing: 10.0,
               mainAxisSpacing: 10.0,
               childAspectRatio: screenWidth > 530 ? 1.05 : 2.6,
-              children: List.generate(6, (index) {
-                return TaskCard();
+              children: List.generate(project.tasks.length, (index) {
+                return TaskCard(project.tasks[index]);
               }),
             ),
           ),

@@ -1,13 +1,23 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:workflow/core/components/custom_card.dart';
+import 'package:workflow/core/enums/deadline_status.dart';
+import 'package:workflow/core/extensions/datetime_conversions_ext.dart';
+import 'package:workflow/data/models/task.dart';
 
 class TaskCard extends StatelessWidget {
-  const TaskCard({super.key});
+  const TaskCard(this.task, {super.key});
+
+  final Task task;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+
+    final title = task.title;
+    final status = task.status;
+    final dueDate = DateFormat('MMM dd').format(task.dueDate);
 
     return CustomCard(
       margin: EdgeInsets.symmetric(horizontal: 20),
@@ -26,7 +36,7 @@ class TaskCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Task title
-            Text("Design Mockups",
+            Text(title,
                 style: textTheme.titleMedium!.copyWith(
                     color: Colors.black, fontWeight: FontWeight.w500)),
             SizedBox(height: 5),
@@ -43,7 +53,7 @@ class TaskCard extends StatelessWidget {
                 Expanded(child: SizedBox()),
                 Icon(EvaIcons.archiveOutline, size: 19),
                 SizedBox(width: 5),
-                Text("In Progress"),
+                Text(status),
               ],
             ),
             SizedBox(height: 10),
@@ -52,7 +62,9 @@ class TaskCard extends StatelessWidget {
                 // Due date
                 Icon(EvaIcons.calendarOutline, size: 19),
                 SizedBox(width: 5),
-                Text("Feb 23"),
+                Text(dueDate,
+                    style: textTheme.bodyMedium!
+                        .copyWith(color: task.dueDate.deadlineColor)),
                 // TODO: Implement the backend for this
                 // TODO: Total time clocked in by users for this task.
                 Expanded(child: SizedBox()),
