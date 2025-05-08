@@ -37,7 +37,6 @@ class _WorkflowAppState extends State<WorkflowApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => DashboardDetailsProvider()),
-        ChangeNotifierProvider(create: (context) => TaskProvider()),
         ChangeNotifierProvider(create: (context) => ProjectsProvider()),
       ],
       child: MaterialApp(

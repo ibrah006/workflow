@@ -24,11 +24,7 @@ class AppRoutes {
         case workerDashboard:
           return AdminDashboardScreen();
         case task:
-          print("settings.arguments: ${(settings.arguments as Task).title}");
-          context
-              .read<TaskProvider>()
-              .setCurrentTask(settings.arguments as Task);
-          return TaskScreen();
+          return TaskScreen(settings.arguments as Task);
         case projects:
           return ProjectsScreen();
         case project:

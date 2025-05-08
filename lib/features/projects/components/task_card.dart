@@ -1,8 +1,8 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:workflow/core/components/custom_card.dart';
-import 'package:workflow/core/enums/deadline_status.dart';
+import 'package:workflow/core/components/border_button.dart';
+import 'package:workflow/core/config/app_routes.dart';
 import 'package:workflow/core/extensions/datetime_conversions_ext.dart';
 import 'package:workflow/data/models/task.dart';
 
@@ -19,10 +19,13 @@ class TaskCard extends StatelessWidget {
     final status = task.status;
     final dueDate = DateFormat('MMM dd').format(task.dueDate);
 
-    return CustomCard(
+    return BorderButton(
+      onPressed: () {
+        Navigator.pushNamed(context, AppRoutes.task, arguments: task);
+      },
       margin: EdgeInsets.symmetric(horizontal: 20),
-      shadowGreyLevel: 0.08,
-      color: Theme.of(context).scaffoldBackgroundColor,
+      // shadowGreyLevel: 0.08,
+      // color: Theme.of(context).scaffoldBackgroundColor,
       // padding: EdgeInsets.all(16),
       // decoration: BoxDecoration(
       //   borderRadius: BorderRadius.circular(12),
