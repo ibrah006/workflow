@@ -1,7 +1,6 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:workflow/core/components/custom_card.dart';
-import 'package:workflow/features/dashboard/components/dimensions_diagram.dart';
 
 class DesignerDashboardScreen extends StatelessWidget {
   const DesignerDashboardScreen({super.key});
