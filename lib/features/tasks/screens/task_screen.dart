@@ -2,6 +2,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:workflow/core/components/custom_card.dart';
 import 'package:workflow/core/components/custom_tabs.dart';
+import 'package:workflow/core/config/app_routes.dart';
 import 'package:workflow/data/models/task.dart';
 import 'package:workflow/data/models/user.dart';
 
@@ -37,6 +38,11 @@ class _TaskScreenState extends State<TaskScreen> {
 
     return Scaffold(
       appBar: AppBar(),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pushNamed(context, AppRoutes.artworkMeasurement);
+          },
+          child: Icon(EvaIcons.camera)),
       body: DefaultTextStyle(
         style: commonTextStyle,
         child: Padding(

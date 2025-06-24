@@ -104,7 +104,9 @@ class ProjectCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRoutes.createTask);
+                    },
                     icon: Icon(EvaIcons.plus),
                     label: Text("Add Task"),
                   ),

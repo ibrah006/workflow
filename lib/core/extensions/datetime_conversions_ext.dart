@@ -74,3 +74,69 @@ extension DatetimeUIExtension on DateTime {
     }
   }
 }
+
+extension DatetimeAdvancedParse on String {
+  DateTime? parseFlexibleDate() {
+    final now = DateTime.now();
+    final monthMap = {
+      'Jan': 1,
+      'Feb': 2,
+      'Mar': 3,
+      'Apr': 4,
+      'May': 5,
+      'Jun': 6,
+      'Jul': 7,
+      'Aug': 8,
+      'Sep': 9,
+      'Oct': 10,
+      'Nov': 11,
+      'Dec': 12
+    };
+
+    // Pattern 1: 2nd May
+    final pattern1 = RegExp(r"(\d{1,2})(st|nd|rd|th)?\s+([A-Za-z]{3,9})",
+        caseSensitive: false);
+    final match1 = pattern1.firstMatch(this);
+    if (match1 != null) {
+      final day = int.parse(match1.group(1)!);
+      final monthStr = match1.group(3)!.substring(0, 3).capitalize();
+      final month = monthMap[monthStr];
+      return DateTime(now.year, month!, day);
+    }
+
+    // Pattern 2: 2 May, 25 or 2 May
+    final pattern2 = RegExp(r"(\d{1,2})\s+([A-Za-z]{3,9}),?\s*(\d{2,4})?",
+        caseSensitive: false);
+    final match2 = pattern2.firstMatch(this);
+    if (match2 != null) {
+      final day = int.parse(match2.group(1)!);
+      final monthStr = match2.group(2)!.substring(0, 3).capitalize();
+      final month = monthMap[monthStr];
+      var year = match2.group(3);
+      final yearInt = year != null
+          ? (int.parse(year) < 100 ? 2000 + int.parse(year) : int.parse(year))
+          : now.year;
+      return DateTime(yearInt, month!, day);
+    }
+
+    // Pattern 3: 2/5/2025 or 2/5
+    final pattern3 = RegExp(r"(\d{1,2})/(\d{1,2})(?:/(\d{2,4}))?");
+    final match3 = pattern3.firstMatch(this);
+    if (match3 != null) {
+      final day = int.parse(match3.group(1)!);
+      final month = int.parse(match3.group(2)!);
+      final year = match3.group(3) != null
+          ? (int.parse(match3.group(3)!) < 100
+              ? 2000 + int.parse(match3.group(3)!)
+              : int.parse(match3.group(3)!))
+          : now.year;
+      return DateTime(year, month, day);
+    }
+
+    return null;
+  }
+}
+
+extension StringCasingExtension on String {
+  String capitalize() => this[0].toUpperCase() + substring(1).toLowerCase();
+}

@@ -2,6 +2,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:workflow/core/components/custom_card.dart';
+import 'package:workflow/core/config/app_routes.dart';
 import 'package:workflow/core/providers/projects_provider.dart';
 import 'package:workflow/features/projects/components/project_card.dart';
 
@@ -20,7 +21,9 @@ class ProjectsScreen extends StatelessWidget {
         centerTitle: false,
         actions: [
           IconButton.filledTonal(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.createProject);
+            },
             style: ButtonStyle(
                 foregroundColor: WidgetStatePropertyAll(Color(0xFF3b72e3)),
                 backgroundColor: WidgetStatePropertyAll(

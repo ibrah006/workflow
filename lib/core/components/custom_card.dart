@@ -11,7 +11,10 @@ class CustomCard extends StatefulWidget {
       this.onPressed,
       this.padding,
       this.borderRadius = 16,
-      this.shadowGreyLevel = 0.04});
+      this.shadowGreyLevel = 0.04,
+      this.strokeWidth,
+      this.height,
+      this.width});
 
   final Widget? child;
   final AlignmentGeometry? alignment;
@@ -21,6 +24,8 @@ class CustomCard extends StatefulWidget {
   final Function? onPressed;
   final double borderRadius;
   final double shadowGreyLevel;
+  final double? strokeWidth;
+  final double? width, height;
 
   @override
   State<CustomCard> createState() => _CustomCardState();
@@ -68,10 +73,14 @@ class _CustomCardState extends State<CustomCard> {
         scale: isPressedDown ? .95 : 1,
         duration: Duration(milliseconds: 25),
         child: Container(
+          height: widget.height,
+          width: widget.width,
           margin: widget.margin,
           alignment: widget.alignment,
           padding: widget.padding ?? EdgeInsets.all(16),
           decoration: BoxDecoration(
+            border: Border.all(
+                color: Color(0xFFe9f1f8), width: widget.strokeWidth ?? 0),
             boxShadow: !widget.hasShadow
                 ? null
                 : [

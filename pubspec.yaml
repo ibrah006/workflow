@@ -23,6 +23,8 @@ dependencies:
   flutter_svg: ^2.1.0
   eva_icons_flutter: ^3.1.0
   fl_chart: ^0.71.0
+  drop_down_list: ^2.0.0
+  image_picker: ^1.1.2
 
 dev_dependencies:
   flutter_test:
@@ -39,3 +41,4 @@ flutter:
     - assets/animations/second_half.json
     - assets/icons/clipboard.svg
     - assets/icons/cube.svg
+    - assets/icons/alert_cube.svg
