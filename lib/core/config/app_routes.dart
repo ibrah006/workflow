@@ -10,6 +10,7 @@ import 'package:workflow/features/projects/screens/project_screen.dart';
 import 'package:workflow/features/projects/screens/projects_screen.dart';
 import 'package:workflow/features/tasks/screens/artwork_measurement_screen.dart';
 import 'package:workflow/features/tasks/screens/create_task_screen.dart';
+import 'package:workflow/features/tasks/screens/designer_task_screen.dart';
 import 'package:workflow/features/tasks/screens/task_screen.dart';
 
 class AppRoutes {
@@ -19,6 +20,7 @@ class AppRoutes {
 
   static const task = "/task";
   static const createTask = "/task/create";
+  static const designTask = "/task/design";
 
   static const projects = "/projects";
   static const project = "/project";
@@ -45,6 +47,8 @@ class AppRoutes {
           return CreateProjectScreen();
         case artworkMeasurement:
           return ArtworkMeasurementScreen();
+        case designTask:
+          return DesignerTaskScreen();
         default:
           return Placeholder();
       }
